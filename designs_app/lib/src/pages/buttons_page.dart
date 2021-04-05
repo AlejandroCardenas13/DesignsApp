@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -10,7 +12,7 @@ class ButtonsDesign extends StatelessWidget {
             _backgroundApp(),
             SingleChildScrollView(
               child: Column(
-                children: [_titles()],
+                children: [_titles(), _roundedButtons()],
               ),
             )
           ],
@@ -89,5 +91,59 @@ class ButtonsDesign extends StatelessWidget {
                 icon: Icon(Icons.hot_tub), label: 'BasicDesign'),
           ],
         ));
+  }
+
+  Widget _roundedButtons() {
+    return Table(
+      children: [
+        TableRow(children: [
+          _creteRoundedButton(Colors.lightBlue, Icons.border_all, 'General'),
+          _creteRoundedButton(Colors.purpleAccent, Icons.settings, 'Settings')
+        ]),
+        TableRow(children: [
+          _creteRoundedButton(
+              Colors.green, Icons.add_shopping_cart_outlined, 'Shopping Cart'),
+          _creteRoundedButton(Colors.brown[100], Icons.accessibility, 'Accessibility')
+        ]),
+        TableRow(children: [
+          _creteRoundedButton(Colors.lightBlueAccent, Icons.slow_motion_video_outlined, 'Entertainment'),
+          _creteRoundedButton(Colors.deepOrange, Icons.batch_prediction, 'Prediction')
+        ]),
+        TableRow(children: [
+          _creteRoundedButton(Colors.greenAccent, Icons.alarm, 'Alarm'),
+          _creteRoundedButton(Colors.yellow[500], Icons.weekend_sharp, 'Weekend')
+        ])
+      ],
+    );
+  }
+
+  Widget _creteRoundedButton(Color color, IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: Container(
+            height: 180.0,
+            decoration: BoxDecoration(
+                color: Color.fromRGBO(62, 66, 107, 0.6),
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(height: 5.0),
+                CircleAvatar(
+                  backgroundColor: color,
+                  radius: 35.0,
+                  child: Icon(icon, color: Colors.white, size: 30),
+                ),
+                Text(text, style: TextStyle(color: color)),
+                SizedBox(height: 5.0)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
